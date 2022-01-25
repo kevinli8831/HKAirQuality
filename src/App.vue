@@ -1,28 +1,39 @@
 <template>
-  <v-app>
-    <v-app-bar
+  <v-app >
+    <v-navigation-drawer  clipped  app >
+      <v-list-item>
+        <v-list-item-content>
+          <v-list-item-title class="text-h6">
+            Application
+          </v-list-item-title>
+          <v-list-item-subtitle>
+            subtext
+          </v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+
+      <v-divider></v-divider>
+
+    </v-navigation-drawer>
+
+    <v-app-bar clipped-left
       app
-      color="primary"
+      color="#7CB9B2"
       dark
     >
       <div class="d-flex align-center">
         <v-img
           alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
+          class="shrink mr-6"
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
+          src="@/assets/airQualityLogo.jpg"
+          transition="scale-transition"
           width="100"
         />
+        <h2>
+          Air Quality Monitor System
+
+        </h2>
       </div>
 
       <v-spacer></v-spacer>
@@ -36,10 +47,10 @@
         <v-icon>mdi-open-in-new</v-icon>
       </v-btn>
     </v-app-bar>
-
     <v-main>
       <HelloWorld/>
     </v-main>
+
   </v-app>
 </template>
 
@@ -58,3 +69,9 @@ export default {
   }),
 };
 </script>
+<style>
+main{
+  color: #304455;
+
+}
+</style>
