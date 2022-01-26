@@ -19,18 +19,18 @@
     </v-navigation-drawer>
 
     <v-app-bar clipped-left
-      app
-      color="#7CB9B2"
-      dark
+               app
+               color="#7CB9B2"
+               dark
     >
       <div class="d-flex align-center">
         <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-6"
+            alt="Vuetify Logo"
+            class="shrink mr-6"
 
-          src="@/assets/airQualityLogo.jpg"
-          transition="scale-transition"
-          width="100"
+            src="@/assets/airQualityLogo.jpg"
+            transition="scale-transition"
+            width="100"
         />
         <h2>
           Air Quality Monitor System
@@ -41,9 +41,9 @@
       <v-spacer></v-spacer>
 
       <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
+          href="https://github.com/vuetifyjs/vuetify/releases/latest"
+          target="_blank"
+          text
       >
         <span class="mr-2">Latest Release</span>
         <v-icon>mdi-open-in-new</v-icon>
