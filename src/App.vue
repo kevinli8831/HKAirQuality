@@ -1,10 +1,12 @@
 <template>
   <v-app >
-    <v-navigation-drawer  clipped  app >
+    <v-navigation-drawer clipped app >
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="text-h6">
             Application
+            <router-link to="/">Home</router-link> |
+            <router-link to="/test">test</router-link>
           </v-list-item-title>
           <v-list-item-subtitle>
             subtext
@@ -48,20 +50,23 @@
       </v-btn>
     </v-app-bar>
     <v-main>
-      <HelloWorld/>
+      <router-view/>
+<!--      <HelloWorld/>-->
     </v-main>
 
   </v-app>
-</template>
 
+
+
+
+
+</template>
 <script>
-import HelloWorld from './components/HelloWorld';
 
 export default {
   name: 'App',
 
   components: {
-    HelloWorld,
   },
 
   data: () => ({
@@ -69,9 +74,22 @@ export default {
   }),
 };
 </script>
-<style>
+<style lang="scss">
 main{
   color: #304455;
 
+}
+
+#nav {
+  padding: 30px;
+
+  a {
+    font-weight: bold;
+    color: #2c3e50;
+
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
 }
 </style>
