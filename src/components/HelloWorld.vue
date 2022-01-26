@@ -4,6 +4,10 @@
         <div>
           <AqiTable/>
         </div>
+      </v-col>    <v-col cols="12">
+        <div>
+          <GoogleMap/>
+        </div>
       </v-col>
 
     </v-row>
@@ -11,10 +15,12 @@
 
 <script>
 import AqiTable from "@/components/aqiTable/aqiTable";
+import GoogleMap from "@/components/GoogleMap";
 
   export default {
     name: 'HelloWorld',
     components:{
+      GoogleMap,
       AqiTable,
 
     },

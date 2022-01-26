@@ -9,6 +9,7 @@
           color="primary"
       >
         <v-list-item
+            @click="navTo(item.router)"
             v-for="(item, i) in items"
             :key="i"
         >
@@ -36,9 +37,15 @@ export default {
     return{
       selectedItem: 0,
       items: [
-        { text: 'Real Time Statistics', icon: 'mdi-history' },
+        { text: 'Real Time Statistics', icon: 'mdi-history',router:'home' },
         { text: 'ESG', icon: 'mdi-account-multiple' },
+        { text: 'test', icon: 'mdi-account-multiple',router:'test' },
       ],
+    }
+  },
+  methods:{
+    navTo(x){
+      this.$router.push({name:x})
     }
   },
 }
