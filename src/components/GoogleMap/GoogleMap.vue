@@ -1,6 +1,14 @@
 <template>
   <div>
     <div>
+      <div class="tag"></div>
+      <div
+        class="d-inline-flex"
+        style="border: 1px solid #cecece; padding: 2px 0px 2px 8px"
+      >
+        Index
+        <v-icon> mdi-chevron-right</v-icon>
+      </div>
       <h2>Search and add a pin</h2>
       <GmapAutocomplete @place_changed="setPlace" />
       <button @click="addMarker">Add</button>
@@ -12,30 +20,59 @@
       :options="MapOption"
       style="width: 100%; height: 600px; position: relative"
     >
-      <GmapMarker
+      <gmap-custom-marker
+        v-for="(item, index) in markers"
+        :marker="item.position"
+        :key="index + 10"
+        @click.native="clickMarker(item)"
+      >
+        <!--        <img src="../../../src/assets/airQualityLogo.jpg" width="20" />-->
+        <CustomMarker
+          :location="item.location"
+          :index="index"
+          :aqi="item.aqiStat.aqi"
+        />
+      </gmap-custom-marker>
+      <stat-dialog
+        :aqi-stat="aqiStat"
+        v-if="dialog"
+        :dialog="dialog"
+        @switch="switchDialog"
+      />
+      <AqiTable v-if="showTable" style="position: absolute; bottom: 0px" />
+      <!--      <GmapMarker
         :key="index"
         v-for="(m, index) in markers"
         :position="m.position"
         :clickable="true"
         @click="clickMarker(m)"
-      />
-      <stat-dialog v-if="dialog" :dialog="dialog" @switch="switchDialog" />
+      />-->
       <!--      <MyLocationButton @click.native="setMyLocation(myLocation)"  style="position: absolute;bottom: 110px;right: 10px"/>-->
     </GmapMap>
   </div>
 </template>
 
 <script>
+import AqiTable from "@/components/aqiTable/aqiTable";
+import GmapCustomMarker from "vue2-gmap-custom-marker";
 import { pick } from "lodash";
 import demoLocation from "../../demo/demoLocation.json";
 import StatDialog from "@/components/GoogleMap/statDialog";
+import CustomMarker from "@/components/GoogleMap/CustomMarker";
 // import MyLocationButton from "@/components/GoogleMapLocationButton/MyLocationButton";
 
 export default {
   name: "GoogleMap",
-  components: { StatDialog },
+  components: {
+    CustomMarker,
+    StatDialog,
+    AqiTable,
+    "gmap-custom-marker": GmapCustomMarker,
+  },
   data() {
     return {
+      aqiStat: null,
+      showTable: false,
       dialog: false,
       myLocation: null,
       center: { lat: 22.317722417309373, lng: 114.17434897929937 },
@@ -64,7 +101,12 @@ export default {
       // demo, getting api
       demoLocation.locations.forEach((x) => {
         let res = pick(x, ["lat", "lng"]);
-        this.markers.push({ position: res });
+        this.markers.push({
+          position: res,
+          location: x.name,
+          aqiStat: x.aqiStat,
+        });
+        console.log(this.markers, "markers");
       });
     },
     setPlace(place) {
@@ -73,8 +115,8 @@ export default {
     },
     clickMarker(m) {
       this.center = m.position;
+      this.aqiStat = m.aqiStat;
       this.switchDialog();
-      console.log(this.dialog, "dialog");
     },
     switchDialog() {
       this.dialog = !this.dialog;

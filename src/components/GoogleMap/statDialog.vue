@@ -31,6 +31,10 @@
 export default {
   name: "statDialog",
   props: {
+    aqiStat: {
+      type: Object,
+      require,
+    },
     dialog: {
       type: Boolean,
       default: false,
