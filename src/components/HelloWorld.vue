@@ -15,7 +15,7 @@
 
 <script>
 import AqiTable from "@/components/aqiTable/aqiTable";
-import GoogleMap from "@/components/GoogleMap";
+import GoogleMap from "@/components/GoogleMap/GoogleMap";
 
   export default {
     name: 'HelloWorld',
