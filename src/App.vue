@@ -1,62 +1,57 @@
 <template>
-  <v-app >
-    <nav-bar/>
-    <v-app-bar clipped-left
-               app
-               color="#7CB9B2"
-               dark
-    >
+  <v-app>
+    <nav-bar :show-nav="showNav" @switchNav="switchNav" />
+    <v-app-bar height="70" clipped-left app color="#7CB9B2" dark>
+      <v-app-bar-nav-icon
+        v-if="$vuetify.breakpoint.mdAndDown"
+        @click.stop="switchNav()"
+      ></v-app-bar-nav-icon>
       <div class="d-flex align-center">
+        <!--        <v-btn v-if="$vuetify.breakpoint.mdAndDown" icon class="mr-3">
+          <v-icon>mdi-menu </v-icon>
+        </v-btn>-->
         <v-img
-            alt="Vuetify Logo"
-            class="shrink mr-6"
-
-            src="@/assets/airQualityLogo.jpg"
-            transition="scale-transition"
-            width="100"
+          alt="Vuetify Logo"
+          class="shrink mr-6"
+          src="@/assets/airQualityLogo.jpg"
+          transition="scale-transition"
+          width="100"
         />
-        <h2>
-          Air Quality Monitor System
-
-        </h2>
+        <h2 v-if="$vuetify.breakpoint.mdAndUp">Air Quality Monitor System</h2>
+        <h3 v-else>Air Quality Monitor System</h3>
       </div>
-
-
     </v-app-bar>
     <v-main>
       <v-container>
-      <router-view/>
+        <router-view />
       </v-container>
 
       <!--      <HelloWorld/>-->
     </v-main>
-
   </v-app>
-
-
-
-
-
 </template>
 <script>
-
 import NavBar from "@/components/navBar";
 export default {
-  name: 'App',
+  name: "App",
 
   components: {
-    NavBar
+    NavBar,
   },
 
   data: () => ({
-    //
+    showNav: null,
   }),
+  methods: {
+    switchNav() {
+      this.showNav = !this.showNav;
+    },
+  },
 };
 </script>
 <style lang="scss">
-main{
+main {
   color: #304455;
-
 }
 
 #nav {

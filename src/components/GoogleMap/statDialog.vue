@@ -33,7 +33,7 @@ export default {
   props: {
     aqiStat: {
       type: Object,
-      require,
+      required: true,
     },
     dialog: {
       type: Boolean,

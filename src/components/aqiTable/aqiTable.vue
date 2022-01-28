@@ -4,7 +4,16 @@
       <div :style="{ width: width + 'px' }" style="background-color: #fff">
         <table>
           <tr>
-            <th class="text-center">Air Quality Index (AQI)</th>
+            <th class="text-center py-2" style="position: relative">
+              Air Quality Index (AQI )
+              <v-btn
+                icon
+                @click="$emit('closeTable')"
+                style="position: absolute; top: -2px; right: 0"
+              >
+                <v-icon>mdi-close</v-icon>
+              </v-btn>
+            </th>
           </tr>
           <tr v-for="item in aqiOption" :key="item.value">
             <td>
@@ -26,6 +35,7 @@
 <script>
 import { aqiOption } from "@/data/aqiOption";
 import AqiBullet from "@/components/aqiTable/aqiBullet";
+
 export default {
   name: "aqiTable",
   components: { AqiBullet },
@@ -52,6 +62,7 @@ table {
   border: 1px solid #dddddd;
   width: 100%;
 }
+
 th {
   border-bottom: 1px solid #dddddd;
 }

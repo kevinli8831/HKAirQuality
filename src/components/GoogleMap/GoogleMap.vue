@@ -2,13 +2,6 @@
   <div>
     <div>
       <div class="tag"></div>
-      <div
-        class="d-inline-flex"
-        style="border: 1px solid #cecece; padding: 2px 0px 2px 8px"
-      >
-        Index
-        <v-icon> mdi-chevron-right</v-icon>
-      </div>
       <h2>Search and add a pin</h2>
       <GmapAutocomplete @place_changed="setPlace" />
       <button @click="addMarker">Add</button>
@@ -39,7 +32,13 @@
         :dialog="dialog"
         @switch="switchDialog"
       />
-      <AqiTable v-if="showTable" style="position: absolute; bottom: 0px" />
+      <AqiTable
+        v-if="showTable"
+        @closeTable="switchIndexTag"
+        style="position: absolute; bottom: 0"
+      />
+      <IndexTag @openTable="switchIndexTag" v-else />
+
       <!--      <GmapMarker
         :key="index"
         v-for="(m, index) in markers"
@@ -59,11 +58,13 @@ import { pick } from "lodash";
 import demoLocation from "../../demo/demoLocation.json";
 import StatDialog from "@/components/GoogleMap/statDialog";
 import CustomMarker from "@/components/GoogleMap/CustomMarker";
+import IndexTag from "@/components/GoogleMapButton/IndexTag";
 // import MyLocationButton from "@/components/GoogleMapLocationButton/MyLocationButton";
 
 export default {
   name: "GoogleMap",
   components: {
+    IndexTag,
     CustomMarker,
     StatDialog,
     AqiTable,
@@ -72,7 +73,7 @@ export default {
   data() {
     return {
       aqiStat: null,
-      showTable: false,
+      showTable: true,
       dialog: false,
       myLocation: null,
       center: { lat: 22.317722417309373, lng: 114.17434897929937 },
@@ -96,7 +97,6 @@ export default {
   },
   methods: {
     pick,
-
     fetchLocation() {
       // demo, getting api
       demoLocation.locations.forEach((x) => {
@@ -121,6 +121,10 @@ export default {
     switchDialog() {
       this.dialog = !this.dialog;
     },
+    switchIndexTag() {
+      this.showTable = !this.showTable;
+    },
+
     setMyLocation(m) {
       this.center = m;
     },
