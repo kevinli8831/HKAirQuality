@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row>
-      <v-col cols="6" :lg="6" :md="12" :xs="12">
+      <v-col cols="12" :lg="6">
         <h1>What is ESG?</h1>
         <p>
           ESG is often conflated or used interchangeably with the term
@@ -20,13 +20,106 @@
           that affect operational efficiency and future strategic directions.
         </p></v-col
       >
+      <v-col cols="12" :lg="6">
+        <v-img
+          src="https://www.weya.com.tw/uploads/designitem/670e43845345a47bf9f80579e132a2ad.jpg"
+        ></v-img>
+      </v-col>
+      <v-col cols="12">
+        <h1>ESG Investing Trends</h1>
+        <p>
+          As ESG investing accelerates in demand, several key trends are
+          emerging – from climate change to social unrest. The coronavirus
+          pandemic, in particular, has intensified discussions about the
+          interconnectedness of sustainability and the financial system. CFA
+          Institute is leading the financial industry by producing valuable
+          research, convening experts and practitioners for discussion, and
+          setting standards to enable the mainstreaming of ESG investing.
+        </p>
+      </v-col>
+      <v-col cols="12">
+        <div>
+          <h1>ESG Factors</h1>
+          <p>
+            There is no one exhaustive list of ESG examples. ESG factors are
+            often interlinked, and it can be challenging to classify an ESG
+            issue as only an environmental, social, or governance issue, as the
+            table below shows.
+          </p>
+          <p>
+            These ESG factors can often be measured (e.g., what the employee
+            turnover for a company is), but it can be difficult to assign them a
+            monetary value (e.g., what the cost of employee turnover for a
+            company is).
+          </p>
+          <v-row>
+            <v-col lg="4" md="6" cols="12">
+              <ESGCard :list="list1">
+                <template v-slot:title> Environmental </template>
+                <template v-slot:subTitle>
+                  Conservation of the natural world
+                </template>
+              </ESGCard>
+            </v-col>
+            <v-col lg="4" md="6" cols="12">
+              <ESGCard :list="list2">
+                <template v-slot:title>Social </template>
+                <template v-slot:subTitle>
+                  Consideration of people & relationships
+                </template>
+              </ESGCard>
+            </v-col>
+            <v-col lg="4" md="6" cols="12">
+              <ESGCard :list="list3">
+                <template v-slot:title> Governance</template>
+                <template v-slot:subTitle>
+                  Standards for running a company
+                </template>
+              </ESGCard>
+            </v-col>
+          </v-row>
+        </div>
+      </v-col>
     </v-row>
   </div>
 </template>
 
 <script>
+import ESGCard from "@/components/ESGCard";
 export default {
   name: "ESG",
+  components: { ESGCard },
+  data() {
+    return {
+      list1: [
+        "Climate change and carbon emissions",
+        "Air and water pollution",
+        "Biodiversity",
+        "Deforestation",
+        "Energy efficiency",
+        "Waste management",
+        "Water scarcity",
+      ],
+      list2: [
+        "Customer satisfaction",
+        "Data protection and privacy",
+        "Gender and diversity",
+        "Employee engagement",
+        "Community relations",
+        "Human rights",
+        "Labor standards",
+      ],
+      list3: [
+        "Board composition",
+        "Audit committee structure",
+        "Bribery and corruption",
+        "Executive compensation",
+        "Lobbying",
+        "Political contributions",
+        "Whistleblower schemes",
+      ],
+    };
+  },
 };
 </script>
 
