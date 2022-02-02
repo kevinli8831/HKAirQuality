@@ -1,6 +1,6 @@
 <template>
-  <div class="marker" :style="{ backgroundColor: aqiOption[index].value }">
-    <div class="tag" :style="{ backgroundColor: aqiOption[index].value }"></div>
+  <div class="marker" :style="{ backgroundColor: color }">
+    <div class="tag" :style="{ backgroundColor: color }"></div>
 
     <h2 style="font-size: initial">
       {{ location || `紅磡` }}
@@ -12,7 +12,7 @@
         class="mr-2"
         max-width="20"
         style="border-radius: 6px"
-        :src="imgSrc"
+        :src="imgSrc()"
       ></v-img>
       <h3 style="font-weight: initial; font-size: initial">
         {{ aqi }}
@@ -34,22 +34,29 @@ export default {
       type: Number,
       default: 40,
     },
-    index: Number,
   },
   data() {
-    return { aqiOption };
+    return { aqiOption, index: 0, aqiLabel: "Good" };
   },
   computed: {
+    color() {
+      let res = aqiOption.find((x) => x.label === this.aqiLabel);
+      console.log(res, "res");
+      return res.value;
+    },
+  },
+  methods: {
     imgSrc() {
-      let res = "Good";
-      if (this.aqi >= 0 && this.aqi <= 50) res = "Good";
-      if (this.aqi >= 51 && this.aqi <= 100) res = "Moderate";
+      if (this.aqi >= 0 && this.aqi <= 50) this.aqiLabel = aqiOption[0].label;
+      if (this.aqi >= 51 && this.aqi <= 100) this.aqiLabel = aqiOption[1].label;
       if (this.aqi >= 101 && this.aqi <= 150)
-        res = "Unhealthy for Sensitive Groups";
-      if (this.aqi >= 151 && this.aqi <= 200) res = "Unhealthy";
-      if (this.aqi >= 201 && this.aqi <= 300) res = "Very Unhealthy";
-      if (this.aqi >= 301) res = "Hazardous";
-      return require("@/assets/aqiImage/" + res + ".png");
+        this.aqiLabel = aqiOption[2].label;
+      if (this.aqi >= 151 && this.aqi <= 200)
+        this.aqiLabel = aqiOption[3].label;
+      if (this.aqi >= 201 && this.aqi <= 300)
+        this.aqiLabel = aqiOption[4].label;
+      if (this.aqi >= 301) this.aqiLabel = aqiOption[5].label;
+      return require("@/assets/aqiImage/" + this.aqiLabel + ".png");
     },
   },
 };

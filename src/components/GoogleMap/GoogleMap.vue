@@ -20,11 +20,7 @@
         @click.native="clickMarker(item)"
       >
         <!--        <img src="../../../src/assets/airQualityLogo.jpg" width="20" />-->
-        <CustomMarker
-          :location="item.location"
-          :index="index"
-          :aqi="item.aqiStat.aqi"
-        />
+        <CustomMarker :location="item.location" :aqi="item.aqiStat.aqi" />
       </gmap-custom-marker>
       <stat-dialog
         :aqi-stat="aqiStat"
@@ -115,7 +111,7 @@ export default {
     },
     clickMarker(m) {
       this.center = m.position;
-      this.aqiStat = m.aqiStat;
+      this.aqiStat = m;
       this.switchDialog();
     },
     switchDialog() {

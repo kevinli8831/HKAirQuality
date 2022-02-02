@@ -2,7 +2,7 @@ export const aqiOption = [
   // Color Should Different
   { value: `#B3ED75`, label: "Good", description: `Green`, index: "0 - 50" },
   {
-    value: `#FCEC6C`,
+    value: `#E8D86A`,
     label: "Moderate",
     description: `Yellow`,
     index: "51 - 100",
