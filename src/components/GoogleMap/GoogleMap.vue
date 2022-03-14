@@ -102,7 +102,6 @@ export default {
           location: x.name,
           aqiStat: x.aqiStat,
         });
-        console.log(this.markers, "markers");
       });
     },
     setPlace(place) {
@@ -143,7 +142,6 @@ export default {
           lng: position.coords.longitude,
         };
         this.myLocation = this.center;
-        console.log(this.myLocation, "myLocation");
       });
     },
   },

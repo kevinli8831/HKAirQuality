@@ -17,8 +17,8 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ "../views/ESG"),
   },
   {
-    path: "/test",
-    name: "test",
+    path: "/Mapxus",
+    name: "Mapxus",
     component: () => import(/* webpackChunkName: "about" */ "../views/test"),
 
     // route level code-splitting

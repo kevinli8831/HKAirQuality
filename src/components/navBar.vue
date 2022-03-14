@@ -40,7 +40,7 @@ export default {
       items: [
         { text: "Real Time Statistics", icon: "mdi-history", router: "home" },
         { text: "ESG", icon: "mdi-account-multiple", router: "ESG" },
-        { text: "test", icon: "mdi-account-multiple", router: "test" },
+        { text: "Mapxus", icon: "mdi-account-multiple", router: "Mapxus" },
       ],
     };
   },
@@ -55,7 +55,7 @@ export default {
     },
     navTo(x) {
       if (!this.$vuetify.breakpoint.lgAndUp) this.$emit("switchNav");
-      this.$router.push({ name: x });
+      this.$router.push({ name: x }).catch(()=>{});
     },
   },
 };

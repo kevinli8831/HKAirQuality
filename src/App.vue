@@ -22,7 +22,7 @@
       </div>
     </v-app-bar>
     <v-main>
-      <v-container>
+      <v-container class="tw-h-full">
         <router-view />
       </v-container>
 
