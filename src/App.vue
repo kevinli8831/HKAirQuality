@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <nav-bar :show-nav="showNav" @switchNav="switchNav" />
+<!--    <nav-bar :show-nav="showNav" @switchNav="switchNav" />-->
     <v-app-bar height="70" clipped-left app color="#7CB9B2" dark>
       <v-app-bar-nav-icon
         v-if="$vuetify.breakpoint.mdAndDown"
@@ -22,7 +22,7 @@
       </div>
     </v-app-bar>
     <v-main>
-      <v-container class="tw-h-full">
+      <v-container class="tw-h-full tw-p-[24px]">
         <router-view />
       </v-container>
 
@@ -31,12 +31,9 @@
   </v-app>
 </template>
 <script>
-import NavBar from "@/components/navBar";
 export default {
   name: "App",
-
   components: {
-    NavBar,
   },
 
   data: () => ({

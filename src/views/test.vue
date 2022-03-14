@@ -1,14 +1,28 @@
 <template>
-<div class="tw-h-full">
   <div class="tw-h-full">
-    <div class="tw-w-1/2">
-    <DashBoard/>
-    </div>
-<div class="tw-w-1/2 tw-h-full">
-  <iframe  id="myFrame" :src='src' ref="iframe" class="tw-w-full tw-h-full "></iframe>
-</div>
+  <v-row class="tw-h-full" >
+    <v-col :sm="12" :md="12" :lg="4" class="tw-shadow-lg">
+      <DashBoard class="tw-w-full "/>
+    </v-col>
+    <v-col  :sm="12" :md="12" :lg="8">
+      <iframe id="myFrame" :src='src' ref="iframe" class="tw-w-full tw-h-full tw-min-h-[600px] "></iframe>
+    </v-col>
+  </v-row>
+<!--<div class="tw-h-full tw-flex-wrap tw-flex tw-flex-row tw-space-x-5">-->
+<!--  <div class="tw-w-1/3 sm:tw-w-full tw-shadow-lg md:tw-w-1/3 lg:tw-w-1/3 xl:tw-w-1/3  ">-->
+<!--    <div class="tw-p-4 ">-->
+<!--      <div class="tw-text-3xl sm:tw-text-sm">-->
+<!--        a-->
+<!--      </div>-->
+
+<!--    </div>-->
+
+<!--  </div>-->
+
+<!--<div class="tw-h-full tw-w-2/3 sm:tw-w-full md:tw-w-2/3 lg:tw-w-2/3 xl:tw-w-2/3  " >-->
+<!--</div>-->
+<!--  </div>-->
   </div>
-</div>
 
 </template>
 
