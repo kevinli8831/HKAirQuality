@@ -1,74 +1,166 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>Click on Map</title>
+    <title>Add POI</title>
     <meta charset='utf-8'>
-    <script src='https://code.jquery.com/jquery-3.5.1.slim.min.js'></script>
-    <script src='https://unpkg.com/@popperjs/core@2.4.0/dist/umd/popper.min.js'></script>
-    <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css'>
-    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js'></script>
-    <!-- dependent mapbox-gl -->
-    <script src='https://api.mapbox.com/mapbox-gl-js/v1.13.0/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v1.13.0/mapbox-gl.css' rel='stylesheet'/>
+
+
+    <!-- dependent maplibre-gl -->
+    <script src='https://unpkg.com/maplibre-gl@1.15.2/dist/maplibre-gl.js'></script>
+    <link href='https://unpkg.com/maplibre-gl@1.15.2/dist/maplibre-gl.css' rel='stylesheet'/>
     <!-- mapxus map -->
-    <script src='https://web-sdk.mapxus.com/prod/mapxus-map-3.6.5.js'></script>
+    <script src='https://web-sdk.mapxus.com/prod/mapxus-map-4.1.3.js'></script>
     <style>
         body {
             margin: 0;
             padding: 0;
         }
 
-        html, body, #map {
+        html,
+        body,
+        #map {
             height: 100%;
+        }
+
+        .group {
+            position: absolute;
+            z-index: 1;
+            margin: 0 auto;
+            width: calc(100vw);
+            text-align: center;
+            top: 25px;
+        }
+
+        .group > button {
+            outline: none;
+            width: 140px;
+            height: 35px;
+            color: rgb(97, 104, 117);
+            border-radius: 3px;
+            font-size: 14px;
+            font-weight: 100;
+            margin: 5px;
+            cursor: pointer;
+            box-shadow: 0px 0px 1px 0px rgb(255, 255, 255);
+        }
+
+        .group > button.active {
+            color: white;
+            background-color: rgb(138, 140, 201);
         }
     </style>
 </head>
 
 <body>
-    <div id='map'></div>
-    <div class='modal fade bd-example-modal-sm'>
-        <div class='modal-dialog modal-sm'>
-            <div class='modal-content'>
-                <div class='modal-header'>
-                    <h5 class='modal-title'>Callback</h5>
-                    <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
-                        <span aria-hidden='true'>&times;</span>
-                    </button>
-                </div>
-                <div class='modal-body'>
-                    <pre><code></code></pre>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class='group'>
+    <button id='add-marker'>Add Markers</button>
+    <button id='remove-marker'>Remove Markers</button>
+</div>
+<div id='map'></div>
 
-    <script>
-        // init mapbox-gl
-        var mapbox = new mapboxgl.Map({
-            container: 'map',
-            zoom: 16.0
-        });
-        // init mapxus map
-        var map = new MapxusMap.Map({
-            map: mapbox,
-            appId: 'com.polyuhkcc.lbsproject.web',
-            secret: '1feOlgd/gr',
-            buildingId: 'f38591fbcd70488b985a5cf5cfd656c0'
-        });
-        // mapxus load map listener
-        map.renderComplete(function () {
-            // map click event
-            map.onMapClickListener(function (event) {
-                var result = {
+<script>
+    function sendVue(value){
+        window.parent.postMessage(value, '*');
+    };
+    // init maplibre-gl map
+    var maplibreMap = new maplibregl.Map({
+        container: 'map',
+        zoom: 16.0
+    });
+    // init mapxus map
+    var map = new MapxusMap.Map({
+        map: maplibreMap,
+        appId: 'com.polyuhkcc.lbsproject.web',
+        secret: '1feOlgd/gr',
+        buildingId: 'f38591fbcd70488b985a5cf5cfd656c0'
+    });
+    // mapxus load map listener
+    map.renderComplete(function () {
+        // create marker
+        var marker = new MapxusMap.Marker(map);
+        var coordinates = [
+            [114.18473210489543, 22.30346659398343],
+            [114.18461635170138, 22.303176912211498],
+            [114.1117505, 22.3707286]
+        ];
+        let result = Object.assign({}, {
+            floor: map.currentFloor,
+            coordinates: coordinates,
+            type: 'coordinates'
+        })
+        sendVue(result)
+        makeMarker();
+        // add markers
+        document.querySelector('#add-marker').addEventListener('click', makeMarker);
+        // remove markers
+        document.querySelector('#remove-marker').addEventListener('click', remove);
+
+        function makeMarker() {
+            // add a marker
+            // var coordinates = [113.2976025, 23.1114014];
+            // add multi marker
+
+            marker.create(coordinates, map.currentFloor, map.building.id);
+            marker.onEventListener("mouseover",(event) =>{
+                let markerLocation=event.point
+                let type=event.type
+                console.log(event)
+                 sendVue(Object.assign({},{
+                     markerLocation:markerLocation || "",
+                     type:type || ""
+                 }))
+            },false)
+            marker.onEventListener("mouseleave",(event) =>{
+                let markerLocation=event.point
+                let type=event.type
+                console.log(event)
+                 sendVue(Object.assign({},{
+                     markerLocation:markerLocation || "",
+                     type:type || ""
+                 }))
+            },false)
+
+            // marker on click event
+            marker.onEventListener('click', function (evt) {
+                // use maplibre popup function to display
+                new maplibregl.Popup()
+                    .setLngLat(evt.lngLat)
+                    .setHTML(
+                        '<p>floor: ' + map.currentFloor + '</p>' +
+                        '<p>lat: ' + evt.lngLat.lat + '</p>' +
+                        '<p>lng: ' + evt.lngLat.lng + '</p>'
+                    )
+                    .addTo(maplibreMap)
+                let result = Object.assign({}, {
                     floor: map.currentFloor,
-                    lat: event.lngLat.lat,
-                    lon: event.lngLat.lng
-                };
-                $('code').text(JSON.stringify(result, null, 2));
-                $('.modal').modal('show');
+                    coordinates: {lat:evt.lngLat.lat,
+                    lng:evt.lngLat.lng},
+                    type: 'marker'
+                })
+                sendVue(result)
+
             });
+        }
+
+        function remove() {
+            marker.remove();
+        }
+
+        map.onMapClickListener(function (event) {
+            var result = {
+                floor: map.currentFloor,
+                lat: event.lngLat.lat,
+                lon: event.lngLat.lng,
+                text:'onClickMapListener'
+            };
+            window.parent.postMessage({result}, '*');
         });
-    </script>
+
+
+    });
+</script>
 </body>
 
 </html>
+
