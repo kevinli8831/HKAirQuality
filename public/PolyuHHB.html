@@ -60,9 +60,7 @@
 <div id='map'></div>
 
 <script>
-    function sendVue(value){
-        window.parent.postMessage(value, '*');
-    };
+
     // init maplibre-gl map
     var maplibreMap = new maplibregl.Map({
         container: 'map',
@@ -75,69 +73,173 @@
         secret: '1feOlgd/gr',
         buildingId: 'f38591fbcd70488b985a5cf5cfd656c0'
     });
+    let coordinates = [
+        [114.18473210489543, 22.30346659398343],
+    ];
     // mapxus load map listener
     map.renderComplete(function () {
         // create marker
         var marker = new MapxusMap.Marker(map);
-        var coordinates = [
-            [114.18473210489543, 22.30346659398343],
-            [114.18461635170138, 22.303176912211498],
-            [114.1117505, 22.3707286]
-        ];
         let result = Object.assign({}, {
             floor: map.currentFloor,
             coordinates: coordinates,
             type: 'coordinates'
         })
+        map.onFloorChangeListener(function (evt) {
+            remove()
+            reloadMarker([114.18461635170138, 22.303176912211498]);
+            makeMarker();
+          console.log('轉樓層')
+        });
         sendVue(result)
         makeMarker();
         // add markers
-        document.querySelector('#add-marker').addEventListener('click', makeMarker);
+        // document.querySelector('#add-marker').addEventListener('click', makeMarker);
         // remove markers
-        document.querySelector('#remove-marker').addEventListener('click', remove);
+        // document.querySelector('#remove-marker').addEventListener('click', remove);
 
         function makeMarker() {
-            // add a marker
-            // var coordinates = [113.2976025, 23.1114014];
-            // add multi marker
 
             marker.create(coordinates, map.currentFloor, map.building.id);
-            marker.onEventListener("mouseover",(event) =>{
-                let markerLocation=event.point
-                let type=event.type
-                console.log(event)
-                 sendVue(Object.assign({},{
-                     markerLocation:markerLocation || "",
-                     type:type || ""
-                 }))
-            },false)
-            marker.onEventListener("mouseleave",(event) =>{
-                let markerLocation=event.point
-                let type=event.type
-                console.log(event)
-                 sendVue(Object.assign({},{
-                     markerLocation:markerLocation || "",
-                     type:type || ""
-                 }))
-            },false)
 
             // marker on click event
             marker.onEventListener('click', function (evt) {
                 // use maplibre popup function to display
                 new maplibregl.Popup()
                     .setLngLat(evt.lngLat)
-                    .setHTML(
-                        '<p>floor: ' + map.currentFloor + '</p>' +
-                        '<p>lat: ' + evt.lngLat.lat + '</p>' +
-                        '<p>lng: ' + evt.lngLat.lng + '</p>'
+                    .setHTML(`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--                     MarkerDetails-->
+
+
+
+
+                    <table>
+                    <tr>
+                        <td>ID</td>
+                        <td>:</td>
+                        <td>asd</td>
+                    </tr>   <tr>
+                        <td>ID</td>
+                        <td>:</td>
+                        <td>asd ${evt.lngLat}</td>
+                    </tr>   <tr>
+                        <td>ID</td>
+                        <td>:</td>
+                        <td>asd</td>
+                    </tr>   <tr>
+                        <td>ID</td>
+                        <td>:</td>
+                        <td>asd</td>
+                    </tr>   <tr>
+                        <td>ID</td>
+                        <td>:</td>
+                        <td>asd</td>
+                    </tr>   <tr>
+                        <td>ID</td>
+                        <td>:</td>
+                        <td>asd</td>
+                    </tr>   <tr>
+                        <td>ID</td>
+                        <td>:</td>
+                        <td>asd</td>
+                    </tr>   <tr>
+                        <td>ID</td>
+                        <td>:</td>
+                        <td>asd</td>
+                    </tr>   <tr>
+                        <td>ID</td>
+                        <td>:</td>
+                        <td>asd</td>
+                    </tr>   <tr>
+                        <td>ID</td>
+                        <td>:</td>
+                        <td>asd</td>
+                    </tr>   <tr>
+                        <td>ID</td>
+                        <td>:</td>
+                        <td>asd</td>
+                    </tr>   <tr>
+                        <td>ID</td>
+                        <td>:</td>
+                        <td>asd</td>
+                    </tr>   <tr>
+                        <td>ID</td>
+                        <td>:</td>
+                        <td>asd</td>
+                    </tr>   <tr>
+                        <td>ID</td>
+                        <td>:</td>
+                        <td>asd</td>
+                    </tr>
+                    <tr>
+                        <td>Name</td>
+                        <td>:</td>
+                        <td>asd</td>
+                    </tr>
+                    </table>
+
+
+<!--                     MarkerDetails-->
+
+`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     )
                     .addTo(maplibreMap)
                 let result = Object.assign({}, {
                     floor: map.currentFloor,
                     coordinates: {lat:evt.lngLat.lat,
                     lng:evt.lngLat.lng},
-                    type: 'marker'
+                    type: 'marker',
+                    markerLocation:evt.point
                 })
+                console.log(evt,'evtevtevtevt')
                 sendVue(result)
 
             });
@@ -146,6 +248,13 @@
         function remove() {
             marker.remove();
         }
+        function reloadMarker(value){
+            coordinates=value;
+            console.log(coordinates,'coordinates')
+        }
+        function sendVue(value){
+            window.parent.postMessage(value, '*');
+        };
 
         map.onMapClickListener(function (event) {
             var result = {

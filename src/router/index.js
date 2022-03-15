@@ -9,7 +9,7 @@ const routes = [
     path: "/",
     name: "home",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/RealTimeStat"),
+      import(/* webpackChunkName: "about" */ "../views/Mapxus"),
   },
   {
     path: "/ESG",
@@ -17,13 +17,9 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ "../views/ESG"),
   },
   {
-    path: "/Mapxus",
-    name: "Mapxus",
-    component: () => import(/* webpackChunkName: "about" */ "../views/test"),
-
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+    path: "/google",
+    name: "Google",
+    component: () => import(/* webpackChunkName: "about" */ "../views/RealTimeStat"),
   },
 ];
 

@@ -1,8 +1,9 @@
 <template>
   <div>
-    <button type="button" @click="update">test</button>
-  <LineChart :chart-data="chartData" :options="options"></LineChart>
-    <PieChart :chart-data="chartDataPie" :options="options"></PieChart>
+    <button type="button" @click="update" >test</button>
+    <LineChart :chart-data="chartData" :options="options"></LineChart>
+    <PieChart  :chart-data="chartDataPie" :options="options"></PieChart>
+    <PieChart  :chart-data="chartDataPie2" :options="options"></PieChart>
   </div>
 </template>
 
@@ -12,7 +13,7 @@ import PieChart from "./chart/PieChart";
 import {colorScheme, getRandomInt} from "../data/aqiOption";
 export default {
   name: "DashBoard",
-  components: {PieChart, LineChart},
+  components: { PieChart, LineChart},
   data() {
     return {
       chartData: {
@@ -41,6 +42,16 @@ export default {
           {
             data: [2,6,8],
             backgroundColor:colorScheme.slice(getRandomInt(15))
+          }
+        ],
+
+      },
+      chartDataPie2:{
+        labels: ['skill1','skill2',`skill3`],
+        datasets: [
+          {
+            data: [2,6,8],
+            backgroundColor:colorScheme.slice(getRandomInt(10))
           }
         ],
 

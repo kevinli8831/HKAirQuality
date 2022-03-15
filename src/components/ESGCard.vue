@@ -11,8 +11,8 @@
         </div>
       </div>
       <div style="padding: 20px">
-        <ul v-for="(item, index) in list" :key="index">
-          <li>{{ item }}</li>
+        <ul class="tw-list-disc" v-for="(item, index) in list" :key="index">
+          <li class="tw-pl-5 tw-pb-3">{{ item }}</li>
         </ul>
       </div>
     </v-card>
