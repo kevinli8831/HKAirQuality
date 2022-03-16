@@ -1,22 +1,29 @@
 <template>
   <div>
-    <v-dialog width="500" v-model="dialog" @click:outside="$emit('switch')">
+    <v-dialog
+      width="500"
+      v-model="dialog"
+      @click:outside="$emit('update:dialog', false)"
+    >
       <v-card>
         <v-card-title
           class="text-h5 white--text font-weight-bold"
-          :style="{ backgroundColor: color }"
+          :style="{ backgroundColor: `#7CB9B2` }"
         >
           {{ aqiStat.location }}
         </v-card-title>
         <v-card-text>
           <div
-            v-for="(item, name, index) in aqiStat.aqiStat"
+            v-for="(item, name, index) in aqiStat"
             :key="index"
             class="d-flex align-center py-4"
             style="gap: 20px"
           >
             <h3 style="min-width: 50px">{{ name }}</h3>
-            <v-progress-linear :value="item" :color="color"></v-progress-linear>
+            <v-progress-linear
+              :value="item"
+              color="#7CB9B2"
+            ></v-progress-linear>
             <div style="min-width: 40px; text-align: center">
               {{ item }}
             </div>
@@ -27,7 +34,9 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" text @click="dialog = false"> I accept </v-btn>
+          <v-btn color="primary" text @click="$emit('update:dialog', false)">
+            關閉
+          </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
