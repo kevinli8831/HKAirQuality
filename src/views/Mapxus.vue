@@ -111,8 +111,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.test {
-  background-image: ;
-}
-</style>
+<style scoped></style>

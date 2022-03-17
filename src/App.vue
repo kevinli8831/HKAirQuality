@@ -6,7 +6,7 @@
       app
       color="#7CB9B2"
       dark
-      class="lg:tw-pl-[60px] lg:tw-pr-[60px]"
+      class="lg:tw-pl-[60px] lg:tw-pr-[60px] tw-relative"
     >
       <!--      <v-btn v-if="$vuetify.breakpoint.mdAndDown" icon class="mr-3">
         <v-icon>mdi-menu </v-icon>
@@ -19,36 +19,55 @@
         width="100"
         @click="$router.push({ name: `home` }).catch(() => {})"
       />
+
       <v-toolbar-title
         v-if="$vuetify.breakpoint.lgAndUp"
-        class="tw-cursor-pointer"
+        class="tw-cursor-pointer tw-mr-20 tw-text-3xl"
         @click="$router.push({ name: `home` }).catch(() => {})"
         style="text-underline-offset: 8px"
         >Air Quality Monitor System
       </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <div class="tw-space-x-10">
-        <span
-          class="tw-cursor-pointer tw-text-xl hover:tw-underline-offset-8 hover:tw-underline"
-          style="text-underline-offset: 8px"
-          @click="$router.push({ name: `Google` }).catch(() => {})"
-          >Google Map</span
-        >
 
-        <span
-          class="tw-cursor-pointer tw-text-xl hover:tw-underline-offset-8 hover:tw-underline"
-          style="text-underline-offset: 8px"
-          @click="$router.push({ name: `ESG` }).catch(() => {})"
-          >What is ESG?</span
+      <span
+        class="tw-cursor-pointer tw-text-xl hover:tw-underline-offset-8 hover:tw-underline mr-5"
+        style="text-underline-offset: 8px"
+        @click="$router.push({ name: `Google` }).catch(() => {})"
+        >Google Map</span
+      >
+
+      <span
+        class="tw-cursor-pointer tw-text-xl hover:tw-underline-offset-8 hover:tw-underline"
+        style="text-underline-offset: 8px"
+        @click="$router.push({ name: `ESG` }).catch(() => {})"
+        >What is ESG?</span
+      >
+
+      <v-spacer></v-spacer>
+
+      <div>
+        <v-btn
+          large
+          icon
+          @click="showWeather = !showWeather"
+          :color="showWeather ? `yellow` : ``"
         >
-        <v-btn icon class="mr-3">
-          <v-icon> mdi-bolt </v-icon>
+          <v-icon> thunderstorm </v-icon>
         </v-btn>
       </div>
+      <!--      <v-fade-transition>      </v-fade-transition>-->
+      <transition name="slide-fade">
+        <WeatherCard
+          class="tw-absolute tw-top-[70px] tw-right-0"
+          v-if="showWeather"
+        />
+      </transition>
     </v-app-bar>
+
     <v-main>
       <v-container class="tw-h-full tw-p-[24px]">
-        <router-view />
+        <transition name="fade">
+          <router-view />
+        </transition>
       </v-container>
 
       <!--      <HelloWorld/>-->
@@ -56,12 +75,13 @@
   </v-app>
 </template>
 <script>
+import WeatherCard from "./components/WeatherCard";
 export default {
   name: "App",
-  components: {},
+  components: { WeatherCard },
 
   data: () => ({
-    showNav: null,
+    showWeather: false,
   }),
   methods: {},
 };
@@ -82,5 +102,24 @@ main {
       color: #42b983;
     }
   }
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
+.slide-fade-enter-active {
+  transition: all 0.5s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.5s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter, .slide-fade-leave-to
+  /* .slide-fade-leave-active for below version 2.1.8 */ {
+  transform: translateY(-70px);
+  opacity: 0;
 }
 </style>
