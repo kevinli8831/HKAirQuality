@@ -105,7 +105,6 @@ export default {
       });
     },
     setPlace(place) {
-      console.log(place, "place");
       this.currentPlace = place;
     },
     clickMarker(m) {

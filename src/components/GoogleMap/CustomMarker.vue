@@ -41,7 +41,6 @@ export default {
   computed: {
     color() {
       let res = aqiOption.find((x) => x.label === this.aqiLabel);
-      console.log(res, "res");
       return res.value;
     },
   },

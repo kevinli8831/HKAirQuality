@@ -50,12 +50,10 @@ export default {
         this.$emit("switchNav");
       }
     },
-    test() {
-      console.log("test");
-    },
+    test() {},
     navTo(x) {
       if (!this.$vuetify.breakpoint.lgAndUp) this.$emit("switchNav");
-      this.$router.push({ name: x }).catch(()=>{});
+      this.$router.push({ name: x }).catch(() => {});
     },
   },
 };

@@ -53,18 +53,35 @@
         >
           <v-icon> thunderstorm </v-icon>
         </v-btn>
+        <span class="tw-text-lg"> {{ currentWeather.meanTemperature }}°C </span>
       </div>
       <!--      <v-fade-transition>      </v-fade-transition>-->
       <transition name="slide-fade">
         <WeatherCard
           class="tw-absolute tw-top-[70px] tw-right-0"
           v-if="showWeather"
+          :weather="currentWeather"
         />
       </transition>
     </v-app-bar>
 
     <v-main>
       <v-container class="tw-h-full tw-p-[24px]">
+        <v-overlay :value="dialog">
+          <v-dialog v-model="dialog" hide-overlay persistent width="300">
+            <v-card color="#7CB9B2" dark>
+              <v-card-text>
+                Loading Please Wait!
+                <v-progress-linear
+                  indeterminate
+                  color="white"
+                  class="mb-0"
+                ></v-progress-linear>
+              </v-card-text>
+            </v-card>
+          </v-dialog>
+        </v-overlay>
+
         <transition name="fade">
           <router-view />
         </transition>
@@ -75,15 +92,26 @@
   </v-app>
 </template>
 <script>
+import { delay } from "lodash";
 import WeatherCard from "./components/WeatherCard";
+import { getCurrentWeather } from "./api/api";
 export default {
   name: "App",
   components: { WeatherCard },
 
   data: () => ({
+    dialog: true,
     showWeather: false,
+    currentWeather: {},
   }),
-  methods: {},
+  async beforeMount() {
+    this.currentWeather = await getCurrentWeather();
+
+    delay(() => {
+      this.dialog = false;
+    }, 2500);
+  },
+  methods: { delay },
 };
 </script>
 <style lang="scss">

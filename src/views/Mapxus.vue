@@ -70,7 +70,6 @@ export default {
       if (data.source) return;
       if (data.markerLocation) this.PopupDetails(data.markerLocation);
       if (data.aqiStat) this.markerDetail = data.aqiStat;
-      console.log(data, "dataFromIframedataFromIframe");
       // this.dataFromIframe?.type==="mouseenter" ? this.isHover=true : this.isHover=false
       // if(this.dataFromIframe?.type==="mouseenter") this.isHover=true
       // console.log(this.dataFromIframe)
