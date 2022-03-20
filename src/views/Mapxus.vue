@@ -1,18 +1,18 @@
 <template>
   <div class="tw-h-full">
     <v-row class="tw-h-full" no-gutters>
-      <v-col :xs="12" :sm="12" :md="12" :lg="4" class="tw-shadow-lg tw-px-3">
-        <div class="tw-h-full tw-pr-3">
-          <DashBoard class="tw-w-full tw-overflow-y-scroll tw-h-[800px]" />
+      <v-col cols="12" :sm="12" :md="12" :lg="4" class="tw-shadow-lg tw-px-3">
+        <div class="tw-pr-3 customMap">
+          <DashBoard class="tw-w-full tw-overflow-y-scroll tw-h-full" />
         </div>
       </v-col>
-      <v-col :xs="12" :sm="12" :md="12" :lg="8">
+      <v-col cols="12" :sm="12" :md="12" :lg="8">
         <div class="tw-relative tw-h-full">
           <iframe
             id="myFrame"
             :src="src"
             ref="iframe"
-            class="tw-w-full tw-h-full tw-min-h-[600px] tw-shadow-lg"
+            class="tw-w-full customMap tw-shadow-lg"
           ></iframe>
           <stat-dialog
             v-if="isSelected"
@@ -110,4 +110,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.customMap {
+  height: calc(100vh - 120px);
+}
+</style>

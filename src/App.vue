@@ -70,7 +70,7 @@
         <v-overlay :value="dialog">
           <v-dialog v-model="dialog" hide-overlay persistent width="300">
             <v-card color="#7CB9B2" dark>
-              <v-card-text>
+              <v-card-text class="tw-mt-3">
                 Loading Please Wait!
                 <v-progress-linear
                   indeterminate
