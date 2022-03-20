@@ -15,13 +15,30 @@
     </div>
     <div class="tw-bg-white tw-p-[24px]">
       <div class="tw-flex tw-justify-between tw-border-b tw-py-2">
+        <div>Weather</div>
+
+        <div class="tw-font-bold">
+          <!--          {{ weather.generalSituation }}-->
+        </div>
+      </div>
+
+      <div class="tw-flex tw-justify-between tw-border-b tw-py-2">
         <div>Temperature</div>
 
         <div class="tw-font-bold">
-          <v-icon color="black"> arrow_upward </v-icon>
-          {{ weather.minMaxTemperature && weather.minMaxTemperature.min }}°C
           <v-icon color="black"> arrow_downward </v-icon>
+
+          {{ weather.minMaxTemperature && weather.minMaxTemperature.min }}°C
+          <v-icon color="black"> arrow_upward </v-icon>
+
           {{ weather.minMaxTemperature && weather.minMaxTemperature.max }}°C
+        </div>
+      </div>
+      <div class="tw-flex tw-justify-between tw-border-b tw-py-2">
+        <div>Humidity</div>
+
+        <div class="tw-font-bold">
+          {{ weather.humidity && weather.humidity }}
         </div>
       </div>
     </div>
