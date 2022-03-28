@@ -18,19 +18,11 @@ export default {
   data() {
     return {
       chartData: {
-        labels: [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-        ],
+        labels: ["January", "February", "March", "April"],
         datasets: [
           {
             label: "Data 1",
-            data: [2, 10, 5, 9, 0, 6, 20],
+            data: [2, 10, 5, 9],
             backgroundColor: this.gradient,
             borderColor: "#FC2525",
             pointBackgroundColor: "rgba(171, 71, 188, 1)",
