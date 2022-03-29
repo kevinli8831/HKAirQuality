@@ -69,8 +69,7 @@
     let request = new XMLHttpRequest()
 
     // Open a new connection, using the GET request on the URL endpoint
-    request.open('GET', 'http://localhost:8081/speed')
-
+    request.open('GET', 'https://express-db.azurewebsites.net/api/all')
     request.onload = function () {
         // Begin accessing JSON data here
         try{
