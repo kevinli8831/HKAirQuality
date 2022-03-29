@@ -60,6 +60,35 @@
 
 <script>
 
+
+</script>
+<script>
+    let coordinates = [
+        [114.18473210489543, 22.30346659398343],
+    ];
+    let request = new XMLHttpRequest()
+
+    // Open a new connection, using the GET request on the URL endpoint
+    request.open('GET', 'http://localhost:8081/speed')
+
+    request.onload = function () {
+        // Begin accessing JSON data here
+        try{
+
+            let data = JSON.parse(this.response)
+            coordinates.push([data[0]?.lon,data[0]?.lat])
+            // Log each movie's title
+            console.log(data)
+            console.log(coordinates,'coordinates')
+            return true;
+        }catch (e) {
+            console.log(e)
+        }
+
+
+    }
+    request.send()
+
     // init maplibre-gl map
     var maplibreMap = new maplibregl.Map({
         container: 'map',
@@ -72,9 +101,6 @@
         secret: '1feOlgd/gr',
         buildingId: 'f38591fbcd70488b985a5cf5cfd656c0'
     });
-    let coordinates = [
-        [114.18473210489543, 22.30346659398343],
-    ];
     // mapxus load map listener
     map.renderComplete(function () {
         // create marker

@@ -46,10 +46,25 @@
 
 import DashBoard from "../components/DashBoard";
 import StatDialog from "../components/GoogleMap/statDialog";
+// import axios from "axios";
+
 export default {
   name: "test",
   components: { StatDialog, DashBoard },
   created() {},
+  beforeMount() {
+    //vue getting data from mongodb server express
+    /*   let apiURL = "http://localhost:8081/speed";
+    axios
+      .get(apiURL)
+      .then((res) => {
+        let temp = res.data;
+        console.log(temp, "res");
+      })
+      .catch((error) => {
+        console.log(error, "error from vue");
+      });*/
+  },
   mounted() {
     //receive from iframe
     window.addEventListener("message", (iframe) => {

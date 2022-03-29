@@ -6,7 +6,7 @@ const Speed = require("../models/Speed");
 router.get("/", async (req, res) => {
   try {
     const speed = await Speed.find();
-    res.json(speed);
+    res.status(200).json(speed);
   } catch (e) {
     res.status(500).json({ message: e.message });
     console.log(e);
