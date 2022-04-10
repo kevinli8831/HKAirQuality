@@ -2,19 +2,18 @@
   <div>
     <button type="button" @click="update">test</button>
     <LineChart :chart-data="chartData" :options="options"></LineChart>
-    <PieChart :chart-data="chartDataPie" :options="options"></PieChart>
-    <PieChart :chart-data="chartDataPie2" :options="options"></PieChart>
+    <!--    <PieChart :chart-data="chartDataPie" :options="options"></PieChart>
+    <PieChart :chart-data="chartDataPie2" :options="options"></PieChart>-->
   </div>
 </template>
 
 <script>
 import { shuffle } from "lodash";
 import LineChart from "./chart/LineChart";
-import PieChart from "./chart/PieChart";
 import { colorScheme, getRandomInt } from "../data/aqiOption";
 export default {
   name: "DashBoard",
-  components: { PieChart, LineChart },
+  components: { LineChart },
   data() {
     return {
       chartData: {

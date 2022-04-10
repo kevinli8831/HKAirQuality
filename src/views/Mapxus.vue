@@ -2,8 +2,8 @@
   <div class="tw-h-full">
     <v-row class="tw-h-full" no-gutters>
       <v-col cols="12" :sm="12" :md="12" :lg="4" class="tw-shadow-lg tw-px-3">
-        <div class="tw-pr-3 customMap">
-          <DashBoard class="tw-w-full tw-overflow-y-scroll tw-h-full" />
+        <div class="tw-pr-10 customMap">
+          <DashBoard class="tw-w-full tw-h-full" />
         </div>
       </v-col>
       <v-col cols="12" :sm="12" :md="12" :lg="8">
