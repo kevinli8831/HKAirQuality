@@ -100,7 +100,7 @@ export default {
   components: { WeatherCard },
 
   data: () => ({
-    dialog: true,
+    dialog: false,
     showWeather: false,
     currentWeather: {},
   }),
@@ -109,7 +109,7 @@ export default {
 
     delay(() => {
       this.dialog = false;
-    }, 2500);
+    }, 0);
   },
   methods: { delay },
 };

@@ -1,9 +1,16 @@
 <template>
   <div class="tw-h-full">
-    <v-row class="tw-h-full" no-gutters>
+    <v-row
+      class="tw-h-full tw-gap-x-4"
+      :class="$vuetify.breakpoint.mdAndDown ? `tw-flex-wrap` : `tw-flex-nowrap`"
+    >
       <v-col cols="12" :sm="12" :md="12" :lg="4" class="tw-shadow-lg tw-px-3">
-        <div class="tw-pr-10 customMap">
-          <DashBoard class="tw-w-full tw-h-full" />
+        <div class="customMap">
+          <DashBoard
+            class="tw-w-full tw-h-full"
+            :AQIAllData="AQIAllData"
+            @reload="reload"
+          />
         </div>
       </v-col>
       <v-col cols="12" :sm="12" :md="12" :lg="8">
@@ -49,10 +56,19 @@ import StatDialog from "../components/GoogleMap/statDialog";
 // import axios from "axios";
 
 export default {
-  name: "test",
+  name: "Mapxus",
   components: { StatDialog, DashBoard },
   created() {},
   beforeMount() {
+    fetch("https://express-db.azurewebsites.net/api/all")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data, "data");
+        this.AQIAllData = data;
+      })
+      .catch((e) => {
+        console.log(`Error message:${e}`);
+      });
     //vue getting data from mongodb server express
     /*   let apiURL = "http://localhost:8081/speed";
     axios
@@ -84,7 +100,7 @@ export default {
       let data = this.dataFromIframe;
       if (data.source) return;
       if (data.markerLocation) this.PopupDetails(data.markerLocation);
-      if (data.aqiStat) this.markerDetail = data.aqiStat;
+      if (data.data) this.markerDetail = data.data;
       // this.dataFromIframe?.type==="mouseenter" ? this.isHover=true : this.isHover=false
       // if(this.dataFromIframe?.type==="mouseenter") this.isHover=true
       // console.log(this.dataFromIframe)
@@ -92,6 +108,17 @@ export default {
     },
   },
   methods: {
+    async reload() {
+      fetch("https://express-db.azurewebsites.net/api/all")
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data, "data");
+          this.AQIAllData = data;
+        })
+        .catch((e) => {
+          console.log(`Error message:${e}`);
+        });
+    },
     async PopupDetails(markerLocation) {
       if (!markerLocation) return;
       this.isSelected = true;
@@ -116,6 +143,7 @@ export default {
   },
   data() {
     return {
+      AQIAllData: [],
       markerDetail: null,
       isSelected: false,
       dataFromIframe: null,

@@ -10,11 +10,13 @@
           class="text-h5 white--text font-weight-bold"
           :style="{ backgroundColor: `#7CB9B2` }"
         >
-          {{ aqiStat.location }}
+          {{ aqiStat._id }}
         </v-card-title>
         <v-card-text>
           <div
-            v-for="(item, name, index) in aqiStat"
+            v-for="(item, name, index) in Object.fromEntries(
+              Object.entries(aqiStat).filter(([key, value]) => key !== 'IoTHub')
+            )"
             :key="index"
             class="d-flex align-center py-4"
             style="gap: 20px"
