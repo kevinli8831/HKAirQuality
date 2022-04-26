@@ -12,18 +12,22 @@
     </div>
     <div>
       <LineChart
+        class="mb-10"
         :chart-data="allTemperature"
         :options="temperatureOptions"
       ></LineChart>
       <LineChart
+        class="mb-10"
         :chart-data="allHumidity"
         :options="temperatureOptions"
       ></LineChart>
       <LineChart
+        class="mb-10"
         :chart-data="allECO2"
         :options="temperatureOptions"
       ></LineChart>
       <LineChart
+        class="mb-10"
         :chart-data="allTWOC"
         :options="temperatureOptions"
       ></LineChart>
