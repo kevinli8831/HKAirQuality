@@ -10,10 +10,25 @@
         v-model="selectedDate"
       />
     </div>
-    <LineChart
-      :chart-data="allTemperature"
-      :options="temperatureOptions"
-    ></LineChart>
+    <div>
+      <LineChart
+        :chart-data="allTemperature"
+        :options="temperatureOptions"
+      ></LineChart>
+      <LineChart
+        :chart-data="allHumidity"
+        :options="temperatureOptions"
+      ></LineChart>
+      <LineChart
+        :chart-data="allECO2"
+        :options="temperatureOptions"
+      ></LineChart>
+      <LineChart
+        :chart-data="allTWOC"
+        :options="temperatureOptions"
+      ></LineChart>
+    </div>
+
     <!--    <PieChart :chart-data="chartDataPie" :options="options"></PieChart>
     <PieChart :chart-data="chartDataPie2" :options="options"></PieChart>-->
   </div>
@@ -84,7 +99,6 @@ export default {
     allTemperature() {
       let TemperatureList = null;
       let labels = [];
-
       if (this.selectedDate === `Day`) {
         TemperatureList = this.findDateMonthWeek("day");
         TemperatureList = this.dynamicDivideDataset(TemperatureList, 10);
@@ -129,6 +143,147 @@ export default {
         labels: labels,
       };
     },
+    allHumidity() {
+      let HumidityList = null;
+      let labels = [];
+      if (this.selectedDate === `Day`) {
+        HumidityList = this.findDateMonthWeek("day");
+        HumidityList = this.dynamicDivideDataset(HumidityList, 10);
+        labels = HumidityList.map((item) =>
+          moment(item?.EventEnqueuedUtcTime).format("YYYY-MM-DD LTS")
+        );
+        HumidityList = HumidityList.map((item) => item.humidity);
+      }
+      if (this.selectedDate === `Month`) {
+        HumidityList = this.findDateMonthWeek("month");
+        HumidityList = this.dynamicDivideDataset(HumidityList, 30);
+        labels = HumidityList.map((item) =>
+          moment(item?.EventEnqueuedUtcTime).format("YYYY-MM-DD LTS")
+        );
+        HumidityList = HumidityList.map((item) => item.humidity);
+      }
+      if (this.selectedDate === `Week`) {
+        HumidityList = this.findDateMonthWeek("week");
+        HumidityList = this.dynamicDivideDataset(HumidityList, 20);
+        labels = HumidityList.map((item) =>
+          moment(item?.EventEnqueuedUtcTime).format("YYYY-MM-DD LTS")
+        );
+        HumidityList = HumidityList.map((item) => item.humidity);
+      }
+      if (this.selectedDate === `All`) {
+        HumidityList = [...this.AQIAllData];
+        HumidityList = this.dynamicDivideDataset(HumidityList, 100);
+        labels = HumidityList.map((item) =>
+          moment(item?.EventEnqueuedUtcTime).format("YYYY-MM-DD LTS")
+        );
+        HumidityList = HumidityList.map((item) => item?.humidity);
+      }
+      return {
+        datasets: [
+          {
+            label: "Humidity",
+            data: HumidityList,
+            borderColor: "#FC2525",
+            pointBackgroundColor: "rgba(171, 71, 188, 1)",
+          },
+        ],
+        labels: labels,
+      };
+    },
+    allECO2() {
+      let ECO2 = null;
+      let labels = [];
+      if (this.selectedDate === `Day`) {
+        ECO2 = this.findDateMonthWeek("day");
+        ECO2 = this.dynamicDivideDataset(ECO2, 10);
+        labels = ECO2.map((item) =>
+          moment(item?.EventEnqueuedUtcTime).format("YYYY-MM-DD LTS")
+        );
+        ECO2 = ECO2.map((item) => item.eCO2);
+      }
+      if (this.selectedDate === `Month`) {
+        ECO2 = this.findDateMonthWeek("month");
+        ECO2 = this.dynamicDivideDataset(ECO2, 30);
+        labels = ECO2.map((item) =>
+          moment(item?.EventEnqueuedUtcTime).format("YYYY-MM-DD LTS")
+        );
+        ECO2 = ECO2.map((item) => item.eCO2);
+      }
+      if (this.selectedDate === `Week`) {
+        ECO2 = this.findDateMonthWeek("week");
+        ECO2 = this.dynamicDivideDataset(ECO2, 20);
+        labels = ECO2.map((item) =>
+          moment(item?.EventEnqueuedUtcTime).format("YYYY-MM-DD LTS")
+        );
+        ECO2 = ECO2.map((item) => item.eCO2);
+      }
+      if (this.selectedDate === `All`) {
+        ECO2 = [...this.AQIAllData];
+        ECO2 = this.dynamicDivideDataset(ECO2, 100);
+        labels = ECO2.map((item) =>
+          moment(item?.EventEnqueuedUtcTime).format("YYYY-MM-DD LTS")
+        );
+        ECO2 = ECO2.map((item) => item?.eCO2);
+      }
+      return {
+        datasets: [
+          {
+            label: "eCO2",
+            data: ECO2,
+            borderColor: "#FC2525",
+            pointBackgroundColor: "rgba(171, 71, 188, 1)",
+          },
+        ],
+        labels: labels,
+      };
+    },
+    allTWOC() {
+      let TWOC = null;
+      let labels = [];
+      if (this.selectedDate === `Day`) {
+        TWOC = this.findDateMonthWeek("day");
+        TWOC = this.dynamicDivideDataset(TWOC, 10);
+        labels = TWOC.map((item) =>
+          moment(item?.EventEnqueuedUtcTime).format("YYYY-MM-DD LTS")
+        );
+        TWOC = TWOC.map((item) => item.TVOC);
+      }
+      if (this.selectedDate === `Month`) {
+        TWOC = this.findDateMonthWeek("month");
+        TWOC = this.dynamicDivideDataset(TWOC, 30);
+        labels = TWOC.map((item) =>
+          moment(item?.EventEnqueuedUtcTime).format("YYYY-MM-DD LTS")
+        );
+        TWOC = TWOC.map((item) => item.TVOC);
+      }
+      if (this.selectedDate === `Week`) {
+        TWOC = this.findDateMonthWeek("week");
+        TWOC = this.dynamicDivideDataset(TWOC, 20);
+        labels = TWOC.map((item) =>
+          moment(item?.EventEnqueuedUtcTime).format("YYYY-MM-DD LTS")
+        );
+        TWOC = TWOC.map((item) => item.TVOC);
+      }
+      if (this.selectedDate === `All`) {
+        TWOC = [...this.AQIAllData];
+        TWOC = this.dynamicDivideDataset(TWOC, 100);
+        labels = TWOC.map((item) =>
+          moment(item?.EventEnqueuedUtcTime).format("YYYY-MM-DD LTS")
+        );
+        TWOC = TWOC.map((item) => item?.TVOC);
+      }
+      return {
+        datasets: [
+          {
+            label: "TWOC",
+            data: TWOC,
+            borderColor: "#FC2525",
+            pointBackgroundColor: "rgba(171, 71, 188, 1)",
+          },
+        ],
+        labels: labels,
+      };
+    },
   },
   methods: {
     moment,
@@ -137,6 +292,7 @@ export default {
       const sortedDates = dates.sort((a, b) =>
         moment(a?.EventEnqueuedUtcTime).diff(moment(b))
       );
+      console.log(sortedDates, "sortedDates");
       return sortedDates;
     },
     findDateMonthWeek(typeOfDate) {

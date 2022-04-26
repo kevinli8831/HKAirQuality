@@ -70,11 +70,10 @@
     let request = new XMLHttpRequest()
 
     // Open a new connection, using the GET request on the URL endpoint
-    request.open('GET', 'https://express-db.azurewebsites.net/api/all')
+    request.open('GET', 'https://express-db.azurewebsites.net/api/v1/posts')
     request.onload = function () {
         // Begin accessing JSON data here
         try{
-
             let data = JSON.parse(this.response)
             // sorting latest data
              sortedDates = data.sort((a, b) => moment(a.EventEnqueuedUtcTime).diff(moment(b)))

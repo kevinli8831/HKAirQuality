@@ -28,12 +28,12 @@
         >Air Quality Monitor System
       </v-toolbar-title>
 
-      <span
-        class="tw-cursor-pointer tw-text-xl hover:tw-underline-offset-8 hover:tw-underline mr-10"
-        style="text-underline-offset: 8px"
-        @click="$router.push({ name: `Google` }).catch(() => {})"
-        >Google Map</span
-      >
+      <!--      <span-->
+      <!--        class="tw-cursor-pointer tw-text-xl hover:tw-underline-offset-8 hover:tw-underline mr-10"-->
+      <!--        style="text-underline-offset: 8px"-->
+      <!--        @click="$router.push({ name: `Google` }).catch(() => {})"-->
+      <!--        >Google Map</span-->
+      <!--      >-->
 
       <span
         class="tw-cursor-pointer tw-text-xl hover:tw-underline-offset-8 hover:tw-underline"

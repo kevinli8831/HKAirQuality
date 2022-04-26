@@ -5,7 +5,7 @@
       :class="$vuetify.breakpoint.mdAndDown ? `tw-flex-wrap` : `tw-flex-nowrap`"
     >
       <v-col cols="12" :sm="12" :md="12" :lg="4" class="tw-shadow-lg tw-px-3">
-        <div class="customMap">
+        <div class="customMap overflow-auto">
           <DashBoard
             class="tw-w-full tw-h-full"
             :AQIAllData="AQIAllData"
@@ -60,7 +60,7 @@ export default {
   components: { StatDialog, DashBoard },
   created() {},
   beforeMount() {
-    fetch("https://express-db.azurewebsites.net/api/all")
+    fetch("https://express-db.azurewebsites.net/api/v1/posts")
       .then((response) => response.json())
       .then((data) => {
         console.log(data, "data");
@@ -109,7 +109,7 @@ export default {
   },
   methods: {
     async reload() {
-      fetch("https://express-db.azurewebsites.net/api/all")
+      fetch("https://express-db.azurewebsites.net/api/v1/posts")
         .then((response) => response.json())
         .then((data) => {
           console.log(data, "data");
