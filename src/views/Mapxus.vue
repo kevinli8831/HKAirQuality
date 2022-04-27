@@ -1,5 +1,23 @@
 <template>
-  <div class="tw-h-full">
+  <div class="tw-h-full tw-relative">
+    <v-alert
+      v-if="false"
+      style="width: 100%; position: absolute; z-index: 99999"
+      border="left"
+      type="error"
+      class="tw-bottom-3"
+      transition="scale-transition"
+    >
+      <v-row align="center">
+        <v-col class="grow">
+          There might be a fire on it since the speed temperature is higher than
+          normal.
+        </v-col>
+        <v-col class="shrink">
+          <v-btn>Call Police</v-btn>
+        </v-col>
+      </v-row>
+    </v-alert>
     <v-row
       class="tw-h-full tw-gap-x-4"
       :class="$vuetify.breakpoint.mdAndDown ? `tw-flex-wrap` : `tw-flex-nowrap`"
